@@ -5,7 +5,7 @@
   
   <div v-for="(product,i) in products" :key="i">
     <h4>{{ product }}</h4>
-    <p>{{ price1 }} 만원</p>
+    <p>{{ price1 }} 만원111</p>
   </div>
 
   <div>https://www.youtube.com/watch?v=UyESqYSb0gY</div>
