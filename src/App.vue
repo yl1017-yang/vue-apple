@@ -1,48 +1,56 @@
-<template>
-
-  <div class="black-bg" v-if="modalOpen == true">
-    <div class="white-bg">
-      <h4>모달팝업 타이틀</h4>
-      <p>모달팝업 내용입니다.</p>
-      <button @click="modalOpen = false">팝업닫기</button>
-    </div>
-  </div>
-
+<template>  
 
   <div class="menu">
     <a v-for="a in menus" :key="a" href="#">{{ a }}</a>
   </div>
   
+  <div>전체 강의는 https://codingapple.com/course/vue-js/ 에서 구독자용 할인 코드 YT123</div>
   <!-- <div v-for="(product,i) in products" :key="i" class="product-auto">
     <h4>{{ product }}</h4>
     <p>{{ price[i] }} 만원</p>
     <span>신고수 : {{ 신고수[i] }}</span>
-  </div> -->
+  </div> -->  
+  
+  
+  
+  <!-- 자식 컴퍼넌트 v-bild: 동일 -->
+  <Discount />
 
-  <div>전체 강의는 https://codingapple.com/course/vue-js/ 에서 구독자용 할인 코드 YT123</div>
+  <Modal @closeModal="modalOpen = flase" :원룸들="원룸들" :누른거="누른거" :modalOpen="modalOpen" />
 
-  <div class="product">
-    <div v-for="(oneroom, i) in 원룸들" :key="i">
-      <img :src="원룸들[i].image" />
-      <h4 @click="modalOpen = true">{{ 원룸들[i].title }}</h4>
+  <Card @openModal="modalOpen = true; 누른거 = $event" :원룸="원룸들[i]" v-for="(작명,i) in 원룸들" :key="작명" />
+  <!-- <Card :원룸="원룸들[0]" /> -->
+
+
+  <!-- <div class="product">
+    <div v-for="(a,i) in 원룸들" :key="i" @click="modalOpen = true; 누른거 = i ">
+      <img :src="a.image" />
+      <h4>{{ a.title }}</h4>
+      <p>{{ 원룸들[i].content }}</p>
       <p>{{ 원룸들[i].price }} 원</p>
     </div>
-  </div>
+  </div> -->
+
 </template>
 
 <script>
 import data from './assets/oneroom.js';
+import Discount from './Discount.vue';
+import Modal from './Modal.vue';
+import Card from './Card.vue';
 
 export default {
   name: 'App',
   data(){
     return {
-      modalOpen : false, //0, 1로 표현해도 됨 // 리액트는 state임
-      price : [60, 80, 100],
-      신고수 : [0, 0, 0],
-      menus : ['Home', 'Shop', 'About'],
-      products : ['역삼동원룸', '천호동원룸', '마포구원룸'],
+      오브젝트 : { name : 'kim', age : 20},
+      누른거 : 0,
       원룸들 : data,
+      modalOpen : false, //0, 1로 표현해도 됨 // 리액트는 state임
+      menus : ['Home', 'Shop', 'About'],
+      //price : [60, 80, 100],
+      //신고수 : [0, 0, 0],
+      //products : ['역삼동원룸', '천호동원룸', '마포구원룸'],
     }
   },
 
@@ -51,9 +59,13 @@ export default {
     increase(){
       this.신고수 += 1;
     },
+   
   },
 
   components: {
+    Discount : Discount,
+    Modal : Modal,
+    Card : Card,
   }
 }
 </script>
@@ -89,49 +101,5 @@ div {
   color:#fff;
   padding:0 30px;
 }
-.product-auto {
-  background: #eee;
-  margin: 0 50px;
-  padding: 10px;
-  border-radius: 10px;
-  border-bottom: 2px solid #fff;
-}
-.product {
-  margin: 50px;
-}
-.product > div {
-  padding: 30px 0;
-  border-top: 1px solid #ddd;
-}
-.product h4 {
-  font-size: 20px;
-  font-weight: bold;
-  cursor: pointer;
-}
-.product img {
-  width: 100%;
-  margin-top: 40px;
-}
 
-/* 모달팝업 */
-.black-bg {
-  position: fixed;
-  width: 100%; 
-  height: 100%;
-  top: 0;
-  left: 0;
-  background: rgba(0,0,0,0.5);
-  padding: 40px;
-}
-.white-bg {
-  width: 100%;
-  background: #fff;
-  border-radius: 10px;
-  padding: 40px;
-}
-.white-bg button {
-  background: darkgreen;
-  padding: 10px 50px;
-  color: #fff;
-}
 </style>
