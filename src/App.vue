@@ -19,7 +19,7 @@
   <Modal @closeModal="modalOpen = flase" :원룸들="원룸들" :누른거="누른거" :modalOpen="modalOpen" />
 
   <Card @openModal="modalOpen = true; 누른거 = $event" :원룸="원룸들[i]" v-for="(작명,i) in 원룸들" :key="작명" />
-  <!-- <Card :원룸="원룸들[0]" /> -->
+  <!-- <Card :원룸="원룸들[0]" /> 누른거 = i 사용해도 동일한 효과 나옴 -->
 
 
   <!-- <div class="product">
@@ -54,7 +54,7 @@ export default {
     }
   },
 
-  //함수선언 function
+  //함수선언 function과 동일기능
   methods : {
     increase(){
       this.신고수 += 1;
